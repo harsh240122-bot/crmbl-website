@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<title>crmbl® — Desserts · Coffee · Crumbles | Manor Park, London</title>
+<meta name="description" content="crmbl, Manor Park, London E12. Redefining British desserts: crumble & custard, cake & custard, thick milkshakes, mojitos and specialty coffee. Open daily 3pm–11pm. Order ahead for collection." />
+<meta name="theme-color" content="#3B1033" />
+<meta property="og:title" content="crmbl® — Crumble, Coffee & More" />
+<meta property="og:description" content="Warm crumbles, creamy puddings and specialty coffee in Manor Park, London." />
+<meta property="og:image" content="/img/hero.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Bakery","name":"crmbl","servesCuisine":"Desserts","telephone":"+44 20 8888 8881","email":"hello@crmbluk.com","url":"https://crmbluk.com/","openingHours":"Mo-Su 15:00-23:00","sameAs":["https://www.instagram.com/crmbl.london","https://www.tiktok.com/@crmbl.london"],
+ "address":{"@type":"PostalAddress","streetAddress":"1b Fourth Ave","addressLocality":"London","postalCode":"E12 6DB","addressCountry":"GB"},
+ "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.4","reviewCount":"93"}}
+</script>
+<!-- Motion: custom scroll-scene engine + Web Animations API (js/app.js). Lenis adds inertia smooth-scrolling when available. -->
+<script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('intro');</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="/js/app.js" defer></script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div id="intro" aria-hidden="true">
+  <div class="bar t"></div><div class="bar b"></div>
+  <div class="title"><div class="word"><span>c</span><span>r</span><span>m</span><span>b</span><span>l</span><span><sup>®</sup></span></div></div>
+  <div class="tag">Manor Park · London</div>
+  <div class="count" id="introCount">000</div>
+</div>
+<div class="letterbox t" aria-hidden="true"></div><div class="letterbox b" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#home" class="brand" aria-label="crmbl home"><img class="logo" src="/img/logo-white.png" alt="crmbl"><small>Crumble · Specialty Coffee</small></a>
+    <ul class="links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#delivery">Delivery</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="icon-btn" id="cartBtn" aria-label="Open basket">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="btn btn-ring magnetic" data-open-cart>Order Collection</button>
+      <button class="icon-btn burger" id="burger" aria-label="Open menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
+    </div>
+  </div>
+</header>
+<nav id="mob"><a href="#home">Home</a><a href="#menu">Menu</a><a href="#delivery">Delivery</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></nav>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-photo" id="heroPhoto">
+    <div class="cam" id="heroCam"><div class="breathe">
+      <img src="/img/hero.jpg" alt="crmbl crumble with ice cream and custard pouring over it, in a pink crmbl bowl" fetchpriority="high" />
+      <!-- Animated effects over the photo (coordinates match the photo, 976 × 413) -->
+      <svg class="fx" viewBox="0 0 976 413" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <filter id="steamBlur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.2"/></filter>
+          <linearGradient id="cust" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#F2CF63"/><stop offset=".45" stop-color="#FFF1B8"/><stop offset="1" stop-color="#EAC052"/></linearGradient>
+          <radialGradient id="drop" cx=".35" cy=".35" r=".7"><stop offset="0" stop-color="#FFF6CF"/><stop offset=".55" stop-color="#F8D978"/><stop offset="1" stop-color="#E2B445"/></radialGradient>
+          <path id="pourPath" d="M331,-12 C331,30 332,70 335,104 C339,140 350,170 366,196 C380,214 396,226 402,250 C406,290 405,330 403,378"/>
+        </defs>
+        <g class="steam" filter="url(#steamBlur)">
+          <path class="s s1" d="M215,175 C190,140 240,115 215,80 C195,50 230,25 215,-5"/>
+          <path class="s s2" d="M255,165 C232,132 280,108 258,72 C238,42 272,18 255,-12"/>
+          <path class="s s3" d="M292,170 C270,140 315,112 292,78 C274,50 305,24 292,-8"/>
+          <path class="s s4" d="M190,185 C170,155 210,130 192,98 C176,70 205,45 192,15"/>
+          <path class="s s5" d="M380,185 C360,150 400,125 382,92 C368,64 395,40 382,10"/>
+        </g>
+        <use href="#pourPath" class="pour-body" fill="none" stroke="url(#cust)" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+        <use href="#pourPath" class="pour-shine" fill="none" stroke="#FFFBEA" stroke-width="3.2" stroke-linecap="round" filter="url(#soft)"/>
+        <use href="#pourPath" class="pour-shine2" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round" opacity=".85"/>
+        <g>
+          <ellipse rx="6.5" ry="8" fill="url(#drop)"><animateMotion dur="2.2s" repeatCount="indefinite" rotate="auto"><mpath href="#pourPath"/></animateMotion></ellipse>
+          <ellipse rx="5.5" ry="7" fill="url(#drop)"><animateMotion dur="2.2s" begin="-.75s" repeatCount="indefinite" rotate="auto"><mpath href="#pourPath"/></animateMotion></ellipse>
+          <ellipse rx="6" ry="7.5" fill="url(#drop)"><animateMotion dur="2.2s" begin="-1.5s" repeatCount="indefinite" rotate="auto"><mpath href="#pourPath"/></animateMotion></ellipse>
+        </g>
+        <g class="drip d1"><path d="M0,-9 C4,-3 6,1 6,4 A6,6 0 0 1 -6,4 C-6,1 -4,-3 0,-9Z" fill="url(#drop)" transform="translate(404,372)"/></g>
+        <g class="drip d2"><path d="M0,-8 C3.5,-3 5,1 5,3.5 A5,5 0 0 1 -5,3.5 C-5,1 -3.5,-3 0,-8Z" fill="url(#drop)" transform="translate(462,250)"/></g>
+        <g class="drip d3"><path d="M0,-8 C3.5,-3 5,1 5,3.5 A5,5 0 0 1 -5,3.5 C-5,1 -3.5,-3 0,-8Z" fill="url(#drop)" transform="translate(118,330)"/></g>
+        <ellipse class="ripple r1" cx="402" cy="392" rx="10" ry="3" fill="none" stroke="#FFF1B8" stroke-width="2"/>
+        <ellipse class="ripple r2" cx="120" cy="378" rx="8" ry="2.5" fill="none" stroke="#FFF1B8" stroke-width="2"/>
+      </svg>
+    </div></div>
+  </div>
+  <div class="vignette"></div>
+  <div class="leak" id="leak"></div>
+  <canvas id="sparkles" aria-hidden="true"></canvas>
+
+  <div class="wrap">
+    <div class="hero-copy" id="heroCopy">
+      <div class="loc hf"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>MANOR PARK, LONDON</div>
+      <h1 id="h1"><span class="mask"><span>Crumble,</span></span> <span class="mask"><span>Coffee</span></span><br><span class="mask"><span>&amp;</span></span> <span class="mask"><span>More<svg class="heart" viewBox="0 0 24 24" fill="none" stroke="#FF5FA8" stroke-width="2.2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span></span></h1>
+      <p class="sub hf"><b style="color:#fff">Redefining British desserts.</b> Warm crumble &amp; custard, cake &amp; custard, thick shakes and specialty coffee. Open daily, 3pm to 11pm.</p>
+      <div class="cta hf">
+        <a href="#menu" class="btn btn-pink magnetic">View Menu 🍰</a>
+        <button class="btn btn-ghost magnetic" data-open-cart>Order Collection
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h2l2.4 10.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 1.9-1.4L21 8H6.2"/><circle cx="10" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/></svg></button>
+      </div>
+      <p class="hero-del hf">🛍 Order online, pay in store when you collect<br>🛵 Delivery on <a href="#delivery">Uber Eats</a> &amp; <a href="#delivery">Just Eat</a></p>
+      <div class="rated hf">
+        <span>⭐ <b>4.4</b> (93 Reviews)</span><span class="sep"></span>
+        <span class="g"><svg width="22" height="22" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.6-.4-3.9z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/></svg>Google Rated</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><i></i>Scroll</div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="strip">
+  <svg class="wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true"><path id="wave1" d="M0,40 C120,10 240,10 360,30 C480,50 600,55 720,35 C840,15 960,10 1080,30 C1200,50 1320,50 1440,30 L1440,60 L0,60Z"/></svg>
+  <div class="band">
+    <div class="wrap feat" id="feat">
+      <div><svg viewBox="0 0 48 48"><path d="M10 26h28v8a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6z"/><path d="M12 26c0-6 5-10 12-10s12 4 12 10"/><path d="M18 16c0-3 2-5 6-5s6 2 6 5"/><path d="M6 40h36"/></svg>Signature<br>Crumble</div>
+      <div><svg viewBox="0 0 48 48"><path d="M8 20h26v10a10 10 0 0 1-10 10h-6A10 10 0 0 1 8 30z"/><path d="M34 23h3a4 4 0 0 1 0 8h-4"/><path d="M17 8c-2 3 2 4 0 7M23 6c-2 3 2 4 0 7"/></svg>Specialty<br>Coffee</div>
+      <div><svg viewBox="0 0 48 48"><path d="M8 24h32l-3 14H11z"/><path d="M10 24c0-7 6-12 14-12s14 5 14 12"/><path d="M17 19c3 2 11 2 14 0"/></svg>Cake &amp;<br>Custard</div>
+      <div><svg viewBox="0 0 48 48"><path d="M14 12h20l-3 30H17z"/><path d="M12 12h24"/><path d="M27 12l4-8"/><path d="M20 24l4 3 4-3v6h-8z"/></svg>Shakes &amp;<br>Mojitos</div>
+      <div><svg viewBox="0 0 48 48"><path d="M10 38C10 20 22 10 40 8c0 18-10 30-28 30z"/><path d="M10 38 28 20"/></svg>Madagascan<br>Vanilla Custard</div>
+      <div><svg viewBox="0 0 48 48"><path d="M24 40S8 31 8 19a8 8 0 0 1 16-3 8 8 0 0 1 16 3c0 12-16 21-16 21z"/></svg>Great<br>Reviews</div>
+    </div>
+  </div>
+</div>
+
+<!-- FAVOURITES -->
+<section id="favs" style="padding-top:60px">
+  <div class="wrap center">
+    <div class="reveal"><span class="kicker">Menu Highlights</span>
+      <h2 class="split">Our Customer Favourites</h2>
+      <svg class="underline" viewBox="0 0 160 14"><path d="M4 9 C40 2 120 2 156 9"/></svg></div>
+    <div class="car">
+      <button class="arrow l" id="prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="track" id="track"></div>
+      <button class="arrow r" id="next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- FULL MENU -->
+<section class="menu-sec" id="menu">
+  <div class="wrap center">
+    <div class="reveal"><span class="kicker">The Menu</span><h2 class="split">Something for every craving</h2>
+      <svg class="underline" viewBox="0 0 160 14"><path d="M4 9 C40 2 120 2 156 9"/></svg></div>
+    <div class="tabs" id="tabs"><span class="ind" id="ind"></span>
+      <button class="on" data-f="all">All</button><button data-f="specials">Specials</button><button data-f="crumble">Crumbles</button><button data-f="cake">Cake &amp; Custard</button><button data-f="shakes">Shakes &amp; Mojitos</button><button data-f="drinks">Coffee &amp; Drinks</button></div>
+    <div class="mlist" id="mlist" aria-live="polite"></div>
+    <p style="margin-top:40px;color:var(--muted)" id="orderInfo">Tap <b style="color:var(--pink)">+</b> to order for collection, then <b>pay in store</b> when you pick it up.</p>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="del-sec" id="delivery">
+  <div class="wrap">
+    <div class="del reveal">
+      <div class="del-copy">
+        <span class="kicker">Delivery</span>
+        <h2 class="split">Crumble, at your door</h2>
+        <p>Can't make it in? Get crumble &amp; custard, cakes, shakes and drinks delivered through <b>Uber Eats</b> or <b>Just Eat</b>.</p>
+        <div class="dbtns"><a class="dbtn uber magnetic" data-delivery="uberEats" href="https://www.ubereats.com/gb/store/crmbl/JmzW91QJSwSY9KtANXI8qw" target="_blank" rel="noopener"><span class="dic">🛵</span><span><small>Order on</small>Uber Eats</span><b>→</b></a><a class="dbtn je magnetic" data-delivery="justEat" href="https://www.just-eat.co.uk/restaurants-crmbl-manor-park/menu" target="_blank" rel="noopener"><span class="dic">🛍</span><span><small>Order on</small>Just Eat</span><b>→</b></a></div>
+        <p class="del-small">Delivery is handled by Uber Eats and Just Eat. Prices and delivery times are shown in their apps.</p>
+      </div>
+      <div class="del-art" aria-hidden="true">
+        <div class="phone"><img src="/img/cups-custard.jpg" alt=""><div class="ph-card"><b>crmbl</b><span>Crumble &amp; Custard</span><i>On its way 🛵</i></div></div>
+        <div class="bubble b1">🍮</div><div class="bubble b2">🧋</div><div class="bubble b3">🥧</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT — cinematic pinned scene -->
+<div class="scene" id="about">
+  <div class="stage">
+    <div class="label" id="sceneLabel"><small>step inside</small>Our little pink corner</div>
+    <div class="frame" id="sceneFrame"><img src="/img/hero.jpg" alt="Inside crmbl: a crumble with custard in front of the pink booths and neon crmbl sign" id="sceneImg" loading="lazy"></div>
+    <div class="caption" id="sceneCap">crmbl · Manor Park · 2.35 : 1</div>
+    <div class="story" id="sceneStory">
+      <span class="kicker">About crmbl</span>
+      <h2>Warm crumble, cold drinks, good company</h2>
+      <p>crmbl is redefining British desserts in Manor Park. Our crumbles come with a buttery shortbread topping and Madagascan vanilla custard, and our standard size is a large. Make yours Crûmbrûlée or loaded with Biscoff, Oreo, Ferrero Rocher or Bueno. Alongside them we serve school cake, The Bruce Cake, thick milkshakes, mojitos and specialty coffee, from Traditional Saudi Coffee to our Iced Crûmbrûlee Vietnamese Latte.</p>
+      <p>Pull up in a pink booth with friends, order ahead for collection, or get it delivered with Uber Eats and Just Eat.</p>
+      <div class="stats">
+        <div><b class="count" data-to="4.4" data-dec="1">4.4</b><span>Google rating</span></div>
+        <div><b><span class="count" data-to="93">93</span>+</b><span>Reviews</span></div>
+        <div><b>3–11pm</b><span>Open daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section class="rev-sec" id="reviews">
+  <div class="wrap center">
+    <div class="reveal"><span class="kicker">Reviews</span><h2 class="split">Loved in Manor Park</h2>
+      <div class="big-rating"><b class="count" data-to="4.4" data-dec="1">4.4</b><div style="text-align:left"><div class="stars">★★★★★</div><div style="opacity:.8">from 93 Google reviews</div></div></div></div>
+    <div class="revs" id="revs">
+      <figure class="rev"><div class="stars">★★★★★</div><blockquote>"The crème brûlée crumble is genuinely one of the best desserts I've had."</blockquote><cite><i>G</i>Google review</cite></figure>
+      <figure class="rev"><div class="stars">★★★★★</div><blockquote>"The crumble and white chocolate matcha here is 10/10!! The customer service is exceptional."</blockquote><cite><i>G</i>Google review</cite></figure>
+      <figure class="rev"><div class="stars">★★★★★</div><blockquote>"The apple crumble, school cake &amp; Vietnamese coffee were 10/10. Would 100% recommend."</blockquote><cite><i>G</i>Google review</cite></figure>
+    </div>
+    <div class="summary reveal">Reviewers love the crumbles (especially apple and crème brûlée), the milkshakes and coffee, the friendly, welcoming staff and generous portions at fair prices.
+      <div class="tags"><span>Apple crumble</span><span>Crème brûlée crumble</span><span>Milkshakes</span><span>Coffee</span><span>Friendly staff</span><span>Great value</span></div></div>
+  </div>
+</section>
+
+<!-- GALLERY — horizontal reel -->
+<div class="reel" id="gallery">
+  <div class="stage">
+    <div class="head"><div><span class="kicker">Gallery</span><h2 class="split">A little taste of crmbl</h2></div><div class="prog"><i id="reelProg"></i></div></div>
+    <div class="strip-x" id="reelStrip">
+      <figure class="shot w"><img src="/img/hero.jpg" alt="Crumble with ice cream and custard" loading="lazy" style="object-position:20% 50%"><figcaption><small>Scene 01</small>Crumble, ice cream &amp; custard</figcaption></figure>
+      <figure class="shot s"><img src="/img/cafe.jpg" alt="Inside crmbl" loading="lazy"><figcaption><small>Scene 02</small>Our space</figcaption></figure>
+      <figure class="shot m"><img src="/img/crumble.jpg" alt="Crumble with custard" loading="lazy"><figcaption><small>Scene 03</small>Cinnamon apple crumble &amp; custard</figcaption></figure>
+      <figure class="shot w"><img src="/img/cups.jpg" alt="crmbl crumble cups with custard, whipped cream and toppings" loading="lazy"><figcaption><small>Scene 04</small>The crmbl cup line-up</figcaption></figure>
+      <figure class="shot m"><img src="/img/coffee.jpg" alt="Iced coffee" loading="lazy"><figcaption><small>Scene 05</small>Iced Crûmbrûlee Vietnamese Latte</figcaption></figure>
+      <figure class="shot m"><img src="/img/matcha.jpg" alt="Iced matcha latte" loading="lazy"><figcaption><small>Scene 06</small>Iced Classic Matcha</figcaption></figure>
+    </div>
+  </div>
+</div>
+<div id="lb" role="dialog" aria-label="Photo"><button aria-label="Close">×</button><img alt=""></div>
+
+<!-- CONTACT -->
+<section id="contact" style="padding-top:60px">
+  <div class="wrap">
+    <div class="center reveal"><span class="kicker">Contact</span><h2 class="split">Come say hi</h2>
+      <svg class="underline" viewBox="0 0 160 14"><path d="M4 9 C40 2 120 2 156 9"/></svg></div>
+    <div class="contact">
+      <div class="card reveal">
+        <div class="row"><div class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></div><div><h4>Address</h4><p>1b Fourth Ave, Manor Park<br>London E12 6DB</p></div></div>
+        <div class="row"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><h4>Phone &amp; email</h4><a href="tel:+442088888881">020 8888 8881</a><br><a href="mailto:hello@crmbluk.com">hello@crmbluk.com</a></div></div>
+        <div class="row"><div class="ic">📸</div><div><h4>Follow us</h4><a href="https://www.instagram.com/crmbl.london" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@crmbl.london" target="_blank" rel="noopener">TikTok</a> <span style="color:var(--muted);font-weight:600">@crmbl.london</span><p style="font-size:.9rem;color:var(--muted);font-weight:600">Monthly specials are announced on our socials.</p></div></div>
+        <div class="row"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div style="flex:1"><h4>Opening hours</h4><span class="status" id="status"><i></i><em style="font-style:normal">…</em></span><ul class="hours" id="hours"></ul></div></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+          <a class="btn btn-pink magnetic" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=1b+Fourth+Ave,+Manor+Park,+London+E12+6DB">Get directions</a>
+          <a class="btn btn-outline magnetic" href="tel:+442088888881">Call us</a>
+        </div>
+      </div>
+      <div class="map reveal"><iframe loading="lazy" title="Map showing crmbl, 1b Fourth Ave, London E12 6DB" src="https://maps.google.com/maps?q=1b%20Fourth%20Ave%2C%20Manor%20Park%2C%20London%20E12%206DB&z=16&output=embed"></iframe></div>
+      <div class="card msg-card reveal">
+        <div><h2 style="font-size:2rem;margin:0">Send us a message</h2><p style="color:var(--muted);margin-top:10px">Party orders, questions, feedback or just to say the crumble was good. We'll get back to you by email.</p></div>
+        <form id="contactForm" novalidate>
+          <div class="grid2">
+            <div class="field"><label for="c_name">Name</label><input id="c_name" name="name" autocomplete="name" required><span class="e"></span></div>
+            <div class="field"><label for="c_email">Email</label><input id="c_email" name="email" type="email" autocomplete="email" required><span class="e"></span></div>
+          </div>
+          <div class="field"><label for="c_msg">Message</label><textarea id="c_msg" name="message" rows="4" required></textarea><span class="e"></span></div>
+          <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button class="btn btn-pink" type="submit">Send message</button>
+          <p class="form-note" id="contactNote" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap reveal">
+  <div class="final"><div><h2>Craving something sweet?</h2><p style="opacity:.9;margin-top:8px;font-size:1.15rem">Order ahead, skip the wait, pay when you collect.</p></div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn magnetic" data-open-cart>Order Collection →</button><a class="btn magnetic" href="#delivery" style="background:transparent;color:#fff;border:2px solid #fff">Delivery 🛵</a></div></div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a href="#home" class="brand"><img class="logo" src="/img/logo-white.png" alt="crmbl" style="height:52px"><small>Crumble · Specialty Coffee</small></a><p style="margin-top:16px;max-width:22em">Redefining British desserts in Manor Park, East London.</p><p class="socials"><a href="https://www.instagram.com/crmbl.london" target="_blank" rel="noopener">📸 Instagram</a><a href="https://www.tiktok.com/@crmbl.london" target="_blank" rel="noopener">🎵 TikTok</a></p></div>
+      <div><h5>Explore</h5><ul><li><a href="#menu">Menu</a></li><li><a href="#about">About</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#gallery">Gallery</a></li></ul></div>
+      <div><h5>Order</h5><ul><li><a href="#" data-open-cart>Order for collection</a></li><li><a href="/track">Track an order</a></li></ul></div>
+      <div><h5>Delivery</h5><ul><li><a data-delivery="uberEats" href="https://www.ubereats.com/gb/store/crmbl/JmzW91QJSwSY9KtANXI8qw" target="_blank" rel="noopener">Uber Eats</a></li><li><a data-delivery="justEat" href="https://www.just-eat.co.uk/restaurants-crmbl-manor-park/menu" target="_blank" rel="noopener">Just Eat</a></li></ul></div>
+      <div><h5>Visit</h5><ul><li>1b Fourth Ave</li><li>Manor Park, London E12 6DB</li><li><a href="tel:+442088888881">020 8888 8881</a></li><li><a href="mailto:hello@crmbluk.com">hello@crmbluk.com</a></li></ul></div>
+    </div>
+    <div class="copy"><span>© <span id="yr"></span> crmbl®. All rights reserved.</span><span>Made with custard 💗</span></div>
+  </div>
+</footer>
+
+<button class="btn btn-pink fab" data-open-cart>🛍 Order · <span data-cart-total>£0.00</span></button>
+
+<!-- BASKET / CHECKOUT DRAWER -->
+<div class="shade" id="shade"></div>
+<aside class="drawer" id="drawer" aria-label="Your basket" aria-hidden="true">
+  <div class="dh"><h3 id="drawerTitle">Your basket</h3><button id="closeCart" aria-label="Close">×</button></div>
+
+  <div class="db">
+    <div class="view on" id="vBasket"><div id="cartItems"></div></div>
+
+    <div class="view" id="vCheckout">
+      <form id="checkoutForm" novalidate>
+        <div class="paybox">🛍 <b>Collection only</b> · You pay in store when you pick up your order (card or cash).</div>
+        <div class="notice" id="coNotice" hidden></div>
+        <div class="field"><label for="o_name">Your name</label><input id="o_name" name="name" autocomplete="name" required><span class="e"></span></div>
+        <div class="field"><label for="o_phone">Phone</label><input id="o_phone" name="phone" type="tel" autocomplete="tel" placeholder="07…" required><span class="e"></span></div>
+        <div class="field"><label for="o_email">Email (for your receipt, optional)</label><input id="o_email" name="email" type="email" autocomplete="email"><span class="e"></span></div>
+        <div class="field"><label for="o_slot" id="slotLabel">Collection time</label><select id="o_slot" name="slot"></select><span class="e"></span></div>
+        <div class="field"><label for="o_notes">Notes (allergies, extra custard…)</label><textarea id="o_notes" name="notes" rows="2"></textarea><span class="e"></span></div>
+        <p style="font-size:.85rem;color:var(--muted)">No payment online. Please bring card or cash when you collect.</p>
+        <p class="form-note bad" id="coError" role="alert"></p>
+      </form>
+    </div>
+
+    <div class="view" id="vDone"><div class="done" id="doneBox"></div></div>
+  </div>
+
+  <div class="df" id="drawerFoot">
+    <div class="sum"><span>Subtotal</span><span id="sSub">£0.00</span></div>
+    <div class="sum" id="sDelRow" hidden><span>Delivery</span><span id="sDel">£0.00</span></div>
+    <div class="sum tot"><span>Total</span><span id="sTot">£0.00</span></div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn btn-outline" id="backBtn" hidden>←</button>
+      <button class="btn btn-pink btn-block" id="primaryBtn">Checkout</button>
+    </div>
+  </div>
+</aside>
+<div id="toasts" aria-live="polite"></div>
+</body>
+</html>

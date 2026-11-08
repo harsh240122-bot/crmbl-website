@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<title>crmbl · Admin</title>
+<meta name="robots" content="noindex,nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#3B1033;--plum-3:#22081D;--pink:#E8358A;--blush:#F9D0E2;--blush-2:#FCE6EF;--cream:#FFF7FA;--muted:#6E5468;--ink:#2B1426;--ok:#1E8E4E;--warn:#C77700;--bad:#C21E4B}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+a{color:inherit}
+body{font-family:Nunito,system-ui,sans-serif;background:#F7EEF3;color:var(--ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:9px 16px;font-weight:800;font-size:.9rem;transition:.2s}
+.btn.pink{background:var(--pink);color:#fff}.btn.pink:hover{filter:brightness(1.08)}
+.btn.line{border:2px solid #E7CFDC;color:var(--plum);background:#fff}.btn.line:hover{border-color:var(--pink)}
+.btn.red{color:var(--bad);border:2px solid #F5C9D5;background:#fff}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* login */
+#login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(120% 80% at 0 0,#5E1C48,var(--plum) 50%,var(--plum-3))}
+#login form{background:var(--cream);padding:40px;border-radius:28px;width:min(400px,92vw);box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+#login h1{font-family:Fredoka;font-size:2.4rem;color:var(--plum)}
+#login input{width:100%;border:2px solid #EED6E2;border-radius:14px;padding:13px 14px;margin:18px 0 12px;outline:none}
+#login input:focus{border-color:var(--pink)}
+#login .btn{width:100%;justify-content:center;padding:13px}
+.err{color:var(--bad);font-weight:800;margin-top:10px;min-height:1.2em}
+/* app */
+#app{display:none;min-height:100vh}
+header{background:var(--plum);color:#fff;padding:14px 26px;display:flex;align-items:center;gap:22px;position:sticky;top:0;z-index:20;flex-wrap:wrap}
+header .logo{font-family:Fredoka,system-ui,sans-serif;font-weight:600;font-size:1.7rem}
+header .logo small{font-family:Nunito;font-size:.8rem;opacity:.7;margin-left:6px}
+nav.tabs{display:flex;gap:4px;flex:1}
+nav.tabs button{color:#fff;padding:8px 16px;border-radius:999px;font-weight:800;opacity:.75;position:relative}
+nav.tabs button.on{background:var(--blush);color:var(--plum);opacity:1}
+nav.tabs .dot{position:absolute;top:2px;right:4px;min-width:18px;height:18px;border-radius:9px;background:var(--pink);color:#fff;font-size:.7rem;display:grid;place-items:center;padding:0 4px}
+.live{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:800}
+.live i{width:9px;height:9px;border-radius:50%;background:#888}
+.live.on i{background:#3CD27A;animation:ping 1.6s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(60,210,122,.6)}100%{box-shadow:0 0 0 9px rgba(60,210,122,0)}}
+.banner{background:#FFF3D6;color:#7A4B00;padding:10px 26px;font-weight:700;font-size:.9rem}
+main{padding:24px 26px 60px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stat{background:#fff;border-radius:20px;padding:18px 20px}
+.stat b{display:block;font-family:Fredoka;font-size:2rem;color:var(--plum)}
+.stat span{color:var(--muted);font-weight:700;font-size:.85rem}
+.panel{display:none}.panel.on{display:block}
+/* kanban */
+.board{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.col{background:#EFE2EA;border-radius:20px;padding:12px;min-height:200px}
+.col h3{font-family:Fredoka;font-size:1.05rem;color:var(--plum);padding:4px 6px 10px;display:flex;justify-content:space-between}
+.col h3 span{background:#fff;border-radius:999px;padding:0 10px;font-size:.85rem}
+.order{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 6px 16px -12px rgba(59,16,51,.5);animation:pop .5s cubic-bezier(.2,.9,.3,1.3)}
+.order.fresh{box-shadow:0 0 0 3px var(--pink)}
+@keyframes pop{from{opacity:0;transform:translateY(-10px) scale(.96)}}
+.order .top{display:flex;justify-content:space-between;align-items:center}
+.order .code{font-family:Fredoka;color:var(--pink);font-size:1.05rem}
+.order .ago{font-size:.78rem;color:var(--muted);font-weight:700}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em}
+.pill.collection{background:#E8F4FF;color:#1D5FA0}.pill.delivery{background:#FFF0DD;color:#9A5300}
+.order .who{font-weight:800;margin:8px 0 2px}
+.order .meta{font-size:.85rem;color:var(--muted)}
+.order ul{list-style:none;margin:10px 0;border-top:1px dashed #EAD5E0;padding-top:8px;font-size:.92rem}
+.order li{display:flex;justify-content:space-between}
+.order .note{background:#FFF7DD;border-radius:10px;padding:6px 10px;font-size:.85rem;margin-bottom:8px}
+.order .tot{display:flex;justify-content:space-between;font-weight:800;margin-bottom:10px}
+.order .acts{display:flex;gap:6px;flex-wrap:wrap}
+.order .acts .btn{padding:7px 12px;font-size:.82rem}
+.emptycol{color:var(--muted);text-align:center;padding:30px 0;font-weight:700;font-size:.9rem}
+/* tables + forms */
+.card{background:#fff;border-radius:20px;padding:22px;margin-bottom:20px}
+.card h2{font-family:Fredoka;color:var(--plum);margin-bottom:14px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px}
+td{padding:8px;border-top:1px solid #F3E6EC;vertical-align:middle}
+td input,td select,.form input,.form select,.form textarea{border:2px solid #EED6E2;border-radius:10px;padding:8px 10px;width:100%;outline:none;background:#fff}
+td input:focus,.form input:focus{border-color:var(--pink)}
+td input.price{width:90px}
+.sw{position:relative;width:46px;height:26px;border-radius:13px;background:#DDD;transition:.25s;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.25s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sw.on{background:var(--ok)}.sw.on::after{left:23px}
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:end}
+.form label{display:block;font-weight:800;font-size:.82rem;color:var(--plum);margin-bottom:5px}
+.form .full{grid-column:1/-1}
+.toggles{display:flex;gap:26px;flex-wrap:wrap}
+.toggles label{display:flex;gap:10px;align-items:center;font-weight:800}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.days label{border:2px solid #EED6E2;border-radius:999px;padding:6px 12px;font-weight:800;cursor:pointer}
+.days input{display:none}
+.days label:has(input:checked){background:var(--plum);color:#fff;border-color:var(--plum)}
+.msg{border-top:1px solid #F3E6EC;padding:14px 0;display:flex;gap:14px}
+.msg.unread{background:linear-gradient(90deg,#FFF0F6,transparent)}
+.msg .m{flex:1}.msg b{display:block}.msg p{white-space:pre-wrap;margin-top:4px}
+#toast{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:8px;z-index:50}
+.t{background:var(--plum);color:#fff;padding:12px 18px;border-radius:14px;font-weight:800;box-shadow:0 10px 30px -10px rgba(0,0,0,.5);animation:pop .4s}
+@media(max-width:1000px){.board{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.board{grid-template-columns:1fr}main{padding:16px}table,tbody,tr,td{display:block}thead{display:none}tr{border-top:1px solid #eee;padding:10px 0}td{border:0;padding:4px 0}}
+@media print{body *{visibility:hidden}.printing,.printing *{visibility:visible}.printing{position:absolute;left:0;top:0;width:80mm;box-shadow:none}.printing .acts{display:none}}
+</style>
+</head>
+<body>
+<section id="login">
+  <form id="loginForm">
+    <h1>crmbl<sup style="font-size:.4em">®</sup></h1>
+    <p style="color:var(--muted);font-weight:700">Staff dashboard</p>
+    <input type="password" id="pw" placeholder="Password" autocomplete="current-password" required>
+    <button class="btn pink">Log in</button>
+    <p class="err" id="loginErr"></p>
+  </form>
+</section>
+
+<div id="app">
+  <header>
+    <div class="logo">crmbl<small>dashboard</small></div>
+    <nav class="tabs">
+      <button class="on" data-p="orders">Orders <span class="dot" id="dotOrders" hidden></span></button>
+      <button data-p="menu">Menu</button>
+      <button data-p="messages">Messages <span class="dot" id="dotMsgs" hidden></span></button>
+      <button data-p="settings">Settings</button>
+    </nav>
+    <span class="live" id="live"><i></i><span>Connecting…</span></span>
+    <button class="btn line" id="sound" title="Sound alerts for new orders">🔔 Sound on</button>
+    <a class="btn line" href="/api/admin/orders.xlsx" title="Download every order as an Excel file">⬇ Excel</a>
+    <button class="btn line" id="testAlert" title="Send a test notification to your phone">📱 Test alert</button>
+    <a class="btn line" href="/" target="_blank">View site ↗</a>
+    <button class="btn line" id="logout">Log out</button>
+  </header>
+  <div class="banner" id="alertBanner" hidden>📱 Phone alerts are not set up yet. Add <b>NTFY_TOPIC</b> to the <b>.env</b> file to get every new order on your phone (see the README).</div>
+  <div class="banner" id="pwBanner" hidden>⚠ You're using the default admin password. Set <b>ADMIN_PASSWORD</b> in the <b>.env</b> file before going live.</div>
+  <main>
+    <div class="stats">
+      <div class="stat"><b id="stOrders">0</b><span>Orders today</span></div>
+      <div class="stat"><b id="stRevenue">£0.00</b><span>Sales today</span></div>
+      <div class="stat"><b id="stAvg">£0.00</b><span>Average order</span></div>
+      <div class="stat"><b id="stTop" style="font-size:1.25rem;line-height:2.2rem">–</b><span>Best seller today</span></div>
+    </div>
+
+    <section class="panel on" id="p-orders">
+      <div class="board">
+        <div class="col" data-col="received"><h3>🧾 New <span>0</span></h3><div></div></div>
+        <div class="col" data-col="preparing"><h3>👩‍🍳 Preparing <span>0</span></h3><div></div></div>
+        <div class="col" data-col="ready"><h3>🎉 Ready to collect <span>0</span></h3><div></div></div>
+        <div class="col" data-col="completed"><h3>💗 Done today <span>0</span></h3><div></div></div>
+      </div>
+    </section>
+
+    <section class="panel" id="p-menu">
+      <div class="card"><h2>Menu items</h2>
+        <p style="color:var(--muted);margin:-6px 0 14px;font-weight:600">Changes save automatically. Prices are in pounds. Turn off "On sale" to mark an item as sold out.</p>
+        <div style="overflow-x:auto"><table><thead><tr><th>Item</th><th>Category / section</th><th>Price £ (Medium / Large)</th><th>Badge</th><th>Featured</th><th>On sale</th><th></th></tr></thead><tbody id="menuRows"></tbody></table></div>
+      </div>
+      <div class="card"><h2>Add an item</h2>
+        <form class="form" id="newItem">
+          <div><label>Name</label><input name="name" required></div>
+          <div><label>Category</label><select name="category"><option value="specials">Specials</option><option value="crumble">Crumbles</option><option value="cake">Cake &amp; Custard</option><option value="shakes">Shakes &amp; Mojitos</option><option value="drinks">Coffee &amp; Drinks</option></select></div>
+          <div><label>Price £ (or Medium)</label><input name="price" type="number" step="0.01" min="0" required></div>
+          <div><label>Large price £ (optional)</label><input name="price_l" type="number" step="0.01" min="0"></div>
+          <div><label>Section heading</label><input name="section" placeholder="e.g. Hot drinks"></div>
+          <div><label>Emoji</label><input name="emoji" maxlength="4" placeholder="🍰"></div>
+          <div class="full"><label>Description</label><input name="description"></div>
+          <div><label>Badge (optional)</label><input name="badge" placeholder="New"></div>
+          <div><label>Image path (optional)</label><input name="image" placeholder="/img/my-photo.jpg"></div>
+          <div><button class="btn pink">Add item</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel" id="p-messages"><div class="card"><h2>Messages</h2><div id="msgs"></div></div></section>
+
+    <section class="panel" id="p-settings">
+      <form class="card" id="settingsForm">
+        <h2>Opening hours</h2>
+        <div class="form">
+          <div><label>Opens</label><input type="time" name="open" required></div>
+          <div><label>Closes</label><input type="time" name="close" required></div>
+          <div class="full"><label>Closed on</label><div class="days" id="days"></div></div>
+        </div>
+        <h2 style="margin-top:26px">Online ordering (collection only, customers pay in store)</h2>
+        <div class="toggles">
+          <label><input type="checkbox" name="orderingEnabled"> Take online orders</label>
+          <label><input type="checkbox" name="collectionEnabled"> Collection</label>
+          <input type="checkbox" name="deliveryEnabled" hidden>
+          <label><input type="checkbox" name="allowPreorderWhenClosed"> Allow pre-orders before opening</label>
+        </div>
+        <div class="form" style="margin-top:16px">
+          <input type="hidden" name="deliveryFee"><input type="hidden" name="minDelivery">
+          <div><label>Prep time (minutes)</label><input type="number" min="0" name="prepMinutes"></div>
+          <input type="hidden" name="deliveryPostcodes">
+        </div>
+        <p style="margin-top:20px"><button class="btn pink">Save settings</button> <span id="setNote" style="font-weight:800;color:var(--ok);margin-left:10px"></span></p>
+      </form>
+    </section>
+  </main>
+</div>
+<div id="toast"></div>
+<script src="/js/admin.js"></script>
+</body>
+</html>

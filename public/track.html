@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<title>Track your order · crmbl®</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#3B1033;--pink:#E8358A;--blush:#F9D0E2;--cream:#FFF7FA;--muted:#6E5468}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Nunito,system-ui,sans-serif;background:radial-gradient(120% 80% at 0 0,#5E1C48,var(--plum) 50%,#22081D);min-height:100vh;color:#2B1426;display:grid;place-items:center;padding:30px 16px}
+.card{background:var(--cream);border-radius:30px;padding:36px;width:min(560px,100%);box-shadow:0 40px 80px -30px rgba(0,0,0,.6);animation:in .8s cubic-bezier(.16,1,.3,1)}
+@keyframes in{from{opacity:0;transform:translateY(40px) scale(.97)}}
+a.brand{font-family:Fredoka;font-size:2rem;color:var(--plum);text-decoration:none}
+h1{font-family:Fredoka;color:#2A0E4A;font-size:1.9rem;margin:10px 0 4px}
+.code{display:inline-block;font-family:Fredoka;letter-spacing:.08em;color:var(--pink);background:#FCE6EF;padding:6px 14px;border-radius:12px;margin:8px 0 20px}
+form{display:flex;gap:10px;margin:18px 0}
+input{flex:1;border:2px solid #EED6E2;border-radius:14px;padding:12px 14px;font:inherit;text-transform:uppercase;outline:none}
+input:focus{border-color:var(--pink)}
+button,.btn{background:var(--pink);color:#fff;border:0;border-radius:999px;padding:12px 22px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block}
+.steps{list-style:none;position:relative;margin:10px 0 24px}
+.steps::before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:3px;background:#F1DCE6;border-radius:3px}
+.steps .bar{position:absolute;left:17px;top:18px;width:3px;background:var(--pink);border-radius:3px;transition:height 1s cubic-bezier(.16,1,.3,1)}
+.steps li{display:flex;align-items:center;gap:16px;padding:10px 0;position:relative;color:var(--muted);font-weight:700;transition:color .4s}
+.steps li i{width:37px;height:37px;border-radius:50%;background:#fff;border:3px solid #F1DCE6;display:grid;place-items:center;font-style:normal;z-index:1;transition:.4s}
+.steps li.done{color:#2B1426}.steps li.done i{background:var(--pink);border-color:var(--pink);color:#fff}
+.steps li.now i{box-shadow:0 0 0 0 rgba(232,53,138,.6);animation:p 1.6s infinite}
+@keyframes p{to{box-shadow:0 0 0 14px rgba(232,53,138,0)}}
+.sum{display:flex;justify-content:space-between;padding:4px 0;color:var(--muted);font-weight:700}
+.tot{color:#2B1426;font-size:1.15rem;border-top:2px dashed #F1DCE6;margin-top:8px;padding-top:10px}
+.err{color:#D62D5B;font-weight:800}
+.cancel{background:#FDE8EC;color:#B3123F;padding:12px 16px;border-radius:14px;font-weight:800;margin-bottom:16px}
+</style>
+</head>
+<body>
+<main class="card">
+  <a class="brand" href="/">crmbl<sup style="font-size:.4em">®</sup></a>
+  <div id="app">
+    <h1>Track your order</h1>
+    <p style="color:var(--muted)">Enter the order code from your confirmation.</p>
+    <form id="f"><input id="c" placeholder="CR-XXXXXX" maxlength="12" aria-label="Order code"><button>Track</button></form>
+    <p class="err" id="e"></p>
+  </div>
+</main>
+<script>
+const STEPS={collection:[['received','Order received','🧾'],['preparing','Being prepared','👩‍🍳'],['ready','Ready to collect','🎉'],['completed','Collected','💗']],
+             delivery:[['received','Order received','🧾'],['preparing','Being prepared','👩‍🍳'],['out_for_delivery','Out for delivery','🛵'],['completed','Delivered','💗']]};
+const money=p=>'£'+(p/100).toFixed(2), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let es;
+function render(o){
+  const steps=STEPS[o.type]; let idx=steps.findIndex(s=>s[0]===o.status);
+  if(o.status==='ready'&&o.type==='delivery')idx=1;
+  const pct=idx<=0?0:idx/(steps.length-1);
+  document.getElementById('app').innerHTML=`
+    <h1>Hi ${esc(o.name)} 👋</h1><div class="code">Order #${esc(o.number)}</div>
+    ${o.status==='cancelled'?'<div class="cancel">This order was cancelled. Please call us on 020 8888 8881 if you have questions.</div>':''}
+    <p style="color:var(--muted);margin-bottom:14px">${o.type==='delivery'?'Delivery':'Collection'} · ${o.slot==='asap'?'As soon as possible':'Today at '+esc(o.slot)}</p>
+    <ul class="steps"><span class="bar" id="bar" style="height:0"></span>${steps.map((s,i)=>`<li class="${o.status!=='cancelled'&&i<=idx?'done':''} ${i===idx&&o.status!=='completed'?'now':''}"><i>${s[2]}</i>${s[1]}</li>`).join('')}</ul>
+    ${o.items.map(i=>`<div class="sum"><span>${i.qty}× ${esc(i.name)}</span><span>${money(i.line)}</span></div>`).join('')}
+    ${o.delivery_fee?`<div class="sum"><span>Delivery</span><span>${money(o.delivery_fee)}</span></div>`:''}
+    <div class="sum tot"><span>Pay in store</span><span>${money(o.total)}</span></div>
+    <p style="margin-top:22px"><a class="btn" href="/">Back to crmbl</a></p>`;
+  requestAnimationFrame(()=>{const ul=document.querySelector('.steps');const lis=ul.querySelectorAll('li');if(o.status==='cancelled')return;
+    const top=lis[0].offsetTop+18,end=lis[Math.max(idx,0)].offsetTop+18;document.getElementById('bar').style.height=(end-top)+'px'});
+}
+async function track(code){
+  code=code.trim().toUpperCase(); if(!code)return;
+  history.replaceState(null,'','/track?code='+encodeURIComponent(code));
+  try{const r=await fetch('/api/orders/'+encodeURIComponent(code));const d=await r.json();if(!r.ok)throw new Error(d.error||'Order not found');
+    render(d.order); es?.close(); es=new EventSource('/api/orders/'+encodeURIComponent(code)+'/stream');
+    es.addEventListener('status',ev=>render(JSON.parse(ev.data)));
+  }catch(err){document.getElementById('e').textContent=err.message}
+}
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();track(document.getElementById('c').value)});
+const q=new URLSearchParams(location.search).get('code'); if(q)track(q);
+</script>
+</body>
+</html>

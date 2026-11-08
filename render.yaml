@@ -1,0 +1,31 @@
+# One-click deploy on Render (render.com → New → Blueprint → pick this repo)
+services:
+  - type: web
+    name: crmbl
+    runtime: node
+    plan: starter            # paid plan needed for the disk that stores orders
+    region: frankfurt        # closest Render region to London
+    buildCommand: echo "No build step needed"
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: DATA_DIR
+        value: /var/data
+      - key: NODE_VERSION
+        value: "22"
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false          # Render asks you to type this in when you deploy
+      - key: NTFY_TOPIC
+        sync: false          # your secret ntfy topic name for phone alerts
+      - key: PUBLIC_URL
+        sync: false          # e.g. https://crmbl.onrender.com (tapping an alert opens /admin)
+    disk:
+      name: crmbl-data
+      mountPath: /var/data
+      sizeGB: 1
